@@ -1,0 +1,7 @@
+[workspace]
+members = [
+	"driver",
+	"ghome",
+	"deskled",
+	"cli"
+]

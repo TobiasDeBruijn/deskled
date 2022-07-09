@@ -1,0 +1,9 @@
+[package]
+name = "driver"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+thiserror = "1.0.31"
+tracing = "0.1.35"
+ws2818-rgb-led-spi-driver = "2.0.0"
