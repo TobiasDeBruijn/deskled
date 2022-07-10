@@ -5,3 +5,6 @@ members = [
 	"deskled",
 	"cli"
 ]
+
+[patch.crates-io.refinery-core]
+path = "vendored/refinery/refinery_core"

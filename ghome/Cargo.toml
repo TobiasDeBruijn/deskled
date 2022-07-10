@@ -3,6 +3,27 @@ name = "ghome"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+actix-cors = "0.6"
+tracing = "0.1"
+tracing-actix-web = "0.6"
+thiserror = "1.0"
+rand = "0.8"
+time = "0.3"
+
+[dependencies.actix-web]
+version = "4"
+default-features = false
+
+[dependencies.refinery]
+version = "=0.8.4"
+default-features = false
+features = ["mysql"]
+
+[dependencies.mysql]
+version = "=22.0.0"
+default-features = false
+
+[dependencies.serde]
+version = "1"
+features = ["derive"]

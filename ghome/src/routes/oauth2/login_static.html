@@ -1,0 +1,39 @@
+<html lang="en-US">
+    <head>
+        <meta charset="utf-8">
+        <title>DeskLED Login</title>
+    </head>
+    <body>
+        <form>
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password">
+        </form>
+        <button id="submitBtn">Login</button>
+    </body>
+    <script>
+        const usernameField = document.getElementById('username')
+        const passwordField = document.getElementById('password')
+        document.getElementById('submitBtn').addEventListener('click', async () => {
+            let query = new URLSearchParams(document.location.search)
+            let r = await fetch('/oauth2/login', {
+                method: 'POST',
+                query: query,
+                body: JSON.stringify({
+                    username: usernameField.value,
+                    password: passwordField.value
+                })
+            })
+
+            switch(r.status) {
+                case 200:
+                    let response = await r.json()
+                    let redirectUri = response.redirect_uri
+                    window.location.replace(redirectUri)
+                default:
+                    alert('Something went wrong')
+            }
+        })
+    </script>
+</html>
