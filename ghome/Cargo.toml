@@ -10,6 +10,17 @@ tracing-actix-web = "0.6"
 thiserror = "1.0"
 rand = "0.8"
 time = "0.3"
+serde_json = "1"
+color_space = "0.5.3"
+tap = "1.0.1"
+
+[dependencies.tokio]
+version = "1.19"
+default-features = false
+features = ["process"]
+
+[dependencies.driver]
+path = "../driver"
 
 [dependencies.actix-web]
 version = "4"

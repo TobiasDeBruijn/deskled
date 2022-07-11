@@ -1,4 +1,5 @@
-use tracing::trace;
+use std::fmt;
+use tracing::{info, trace};
 use ws2818_rgb_led_spi_driver::adapter_gen::WS28xxAdapter;
 use ws2818_rgb_led_spi_driver::adapter_spi::WS28xxSpiAdapter;
 use ws2818_rgb_led_spi_driver::encoding::encode_rgb;
@@ -16,11 +17,21 @@ impl Rgb {
     pub fn new(red: u8, green: u8, blue: u8) -> Self {
         Self((red, green, blue))
     }
+
+    pub fn off() -> Self {
+        Self((0, 0, 0))
+    }
 }
 
 pub struct Driver {
     adapter: WS28xxSpiAdapter,
     length: u16
+}
+
+impl fmt::Debug for Driver {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "Driver {{ length: {} }}", self.length)
+    }
 }
 
 impl Driver {
@@ -43,7 +54,7 @@ impl Driver {
             rgb_bits.extend_from_slice(&encode_rgb(r, b, g));
         }
 
-        trace!("Writing RGB");
+        info!("Writing RGB");
         self.adapter.write_encoded_rgb(&rgb_bits).map_err(|e| Error::Ws28xx(e))?;
         Ok(())
     }

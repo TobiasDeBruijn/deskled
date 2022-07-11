@@ -3,6 +3,7 @@ use std::fs;
 use std::path::Path;
 use tracing::trace;
 
+#[derive(Debug)]
 pub struct Spidev(pub(crate) String);
 
 impl Spidev {

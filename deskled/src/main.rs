@@ -21,8 +21,6 @@ async fn do_main() {
         }
     };
 
-
-    /*
     let spidev = match Spidev::new() {
         Ok(x) => x,
         Err(e) => {
@@ -30,7 +28,6 @@ async fn do_main() {
             exit(1);
         }
     };
-
     let driver = match Driver::new(&spidev, config.led.length) {
         Ok(x) => x,
         Err(e) => {
@@ -38,19 +35,18 @@ async fn do_main() {
             exit(1);
         }
     };
-    */
 
     match ghome::start(ghome::Config {
         mysql_host: config.mysql.host,
         mysql_username: config.mysql.username,
         mysql_password: config.mysql.password,
         mysql_database: config.mysql.database,
+        led_length: config.led.length,
         oauth2_client_id: config.oauth2.client_id,
         oauth2_client_secret: config.oauth2.client_secret,
-        oauth2_redirect_uri: config.oauth2.redirect_uri,
         login_username: config.login.username,
         login_password: config.login.password
-    }).await {
+    }, driver).await {
         Ok(_) => {},
         Err(e) => {
             error!("Failed to start webserver: {e}");

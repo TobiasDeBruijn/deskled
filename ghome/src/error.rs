@@ -15,7 +15,11 @@ pub enum Error {
     #[error("{0}")]
     Refinery(#[from] refinery::error::Error),
     #[error("{0}")]
-    Io(#[from] std::io::Error)
+    Io(#[from] std::io::Error),
+    #[error("{0}")]
+    SerdeJson(#[from] serde_json::Error),
+    #[error("Bad Request")]
+    BadRequest,
 }
 
 impl ResponseError for Error {
@@ -26,6 +30,8 @@ impl ResponseError for Error {
             Self::InvalidGrant => StatusCode::BAD_REQUEST,
             Self::Refinery(_) => StatusCode::INTERNAL_SERVER_ERROR,
             Self::Io(_) => StatusCode::INTERNAL_SERVER_ERROR,
+            Self::SerdeJson(_) => StatusCode::BAD_REQUEST,
+            Self::BadRequest => StatusCode::BAD_REQUEST,
         }
     }
 }

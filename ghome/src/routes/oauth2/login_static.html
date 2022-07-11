@@ -16,10 +16,11 @@
         const usernameField = document.getElementById('username')
         const passwordField = document.getElementById('password')
         document.getElementById('submitBtn').addEventListener('click', async () => {
-            let query = new URLSearchParams(document.location.search)
-            let r = await fetch('/oauth2/login', {
+            let r = await fetch(`/oauth2/login${window.location.search}`, {
                 method: 'POST',
-                query: query,
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({
                     username: usernameField.value,
                     password: passwordField.value
@@ -31,6 +32,7 @@
                     let response = await r.json()
                     let redirectUri = response.redirect_uri
                     window.location.replace(redirectUri)
+                    break
                 default:
                     alert('Something went wrong')
             }

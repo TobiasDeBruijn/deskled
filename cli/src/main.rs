@@ -53,7 +53,7 @@ fn main() {
 
 pub fn setup_tracing() {
     let sub = tracing_subscriber::fmt()
-        .pretty()
+        .compact()
         .with_max_level(tracing::Level::TRACE)
         .finish();
 

@@ -17,6 +17,10 @@ cli: build-cli
 	rsync target/armv6-unknown-linux-gnueabihf/debug/cli ${TARGET_USER}@${TARGET_IP}:/tmp/deskled_cli
 	ssh ${TARGET_USER}@${TARGET_IP} /tmp/deskled_cli ${RUN_ARGS}
 
-deskled: build-deskled
+deskled: build-deskled build-cli
 	rsync target/armv6-unknown-linux-gnueabihf/debug/deskled ${TARGET_USER}@${TARGET_IP}:/tmp/deskled
+	rsync target/armv6-unknown-linux-gnueabihf/debug/cli ${TARGET_USER}@${TARGET_IP}:/tmp/deskled_cli
+	ssh ${TARGET_USER}@${TARGET_IP} killall deskled || true
+
+	ssh ${TARGET_USER}@${TARGET_IP} sudo cp /tmp/deskled_cli /usr/local/bin/
 	ssh ${TARGET_USER}@${TARGET_IP} /tmp/deskled

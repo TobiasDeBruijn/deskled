@@ -30,7 +30,6 @@ pub struct Mysql {
 pub struct Oauth2 {
     pub client_id: String,
     pub client_secret: String,
-    pub redirect_uri: String,
 }
 
 #[derive(Debug, Clone, Default, Deserialize, Serialize)]

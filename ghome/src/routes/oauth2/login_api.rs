@@ -32,10 +32,6 @@ pub async fn login(data: WebData, query: web::Query<Query>, payload: web::Json<R
         return Err(Error::Unauthorized);
     }
 
-    if query.redirect_uri.ne(&cfg.oauth2_redirect_uri) {
-        return Err(Error::Unauthorized);
-    }
-
     if query.response_type.ne("code") {
         return Err(Error::Unauthorized);
     }
