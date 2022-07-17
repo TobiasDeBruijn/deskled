@@ -78,7 +78,10 @@ pub async fn exchange(data: WebData, payload: web::Form<Request>) -> WebResult<w
             let token = payload.refresh_token.as_ref().ok_or(Error::InvalidGrant)?;
             match get_refresh_token(&mut tx, &token)? {
                 Some(_) => {},
-                None => return Err(Error::InvalidGrant)
+                None => {
+                    warn!("Could not find refresh token");
+                    return Err(Error::InvalidGrant)
+                }
             }
 
             let access_token = generate_token();

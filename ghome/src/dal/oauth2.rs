@@ -76,7 +76,7 @@ pub fn insert_refresh_token(tx: &mut Transaction, token: &str) -> WebResult<()> 
 
 #[instrument]
 pub fn get_refresh_token(tx: &mut Transaction, token: &str) -> WebResult<Option<()>> {
-    let _: Row = match tx.exec_first("SELECT 1 FROM oauth2_bearer_tokens WHERE token = :token", params! {
+    let _: Row = match tx.exec_first("SELECT 1 FROM oauth2_refresh_tokens WHERE token = :token", params! {
         "token" => token
     })? {
         Some(x) => x,
@@ -88,7 +88,7 @@ pub fn get_refresh_token(tx: &mut Transaction, token: &str) -> WebResult<Option<
 
 #[instrument]
 pub fn remove_refresh_token(tx: &mut Transaction, token: &str) -> WebResult<()> {
-    tx.exec_drop("DELETE FROM oauth2_bearer_tokens WHERE token = :token", params! {
+    tx.exec_drop("DELETE FROM oauth2_refresh_tokens WHERE token = :token", params! {
         "token" => token
     })?;
     Ok(())
